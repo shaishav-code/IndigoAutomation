@@ -9,7 +9,6 @@
           <include name="LoginWithoutPassword"/>
           <include name="InvalidCredentials"/>
           <include name="ValidCredentials"/>
-          <include name="ViewPassword"/>
         </methods>
       </class> <!-- Mavenproj.IndigoAutomation.LoginTestcases -->
     </classes>

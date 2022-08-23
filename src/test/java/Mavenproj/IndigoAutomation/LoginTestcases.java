@@ -1,6 +1,8 @@
 package Mavenproj.IndigoAutomation;
 import org.testng.annotations.Test;
 
+import com.google.gson.annotations.Until;
+
 import static org.testng.Assert.assertEquals;
 
 import java.net.MalformedURLException;
@@ -8,11 +10,13 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import Mavenproj.IndigoAutomation.login.android.WelcomePage;
+
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 
@@ -20,21 +24,23 @@ public class LoginTestcases extends BaseIndigo{
 	
 	
 	@Test (priority = 1)
+	// To click on the 'Continue' button without filled the user name
 	public void LoginWithoutInsertValue() throws MalformedURLException 
 	{
 		AndroidDriver<AndroidElement> driver = capabilities();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
-		//WelcomePage welcomepage = new WelcomePage(driver);
-		//welcomepage.logbutton();
-		
+		// To click on the 'Login' button
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text='Log in to your Indigo account']")));
 		WebElement loginclick = driver.findElement(By.xpath("//android.widget.TextView[@text='Log in to your Indigo account']"));
 		loginclick.click();
 		
-		WebElement btncontinue = driver.findElementById("com.shireburn.indigo:id/textLogin");
+		// To click on the 'Continue' button
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.id("com.shireburn.indigo:id/textLogin")));
+		WebElement btncontinue = driver.findElement(By.id("com.shireburn.indigo:id/btnLogin"));
 		btncontinue.click();
 		
-		//System.out.println(driver.findElement(By.id("com.shireburn.indigo:id/txtUserPlaceHolder")).getText());
+		// To compare the actual and expected text
 		String errormessage = driver.findElement(By.id("com.shireburn.indigo:id/txtUserPlaceHolder")).getText();
 		Assert.assertEquals(errormessage, "Username is required.");
 		
@@ -42,25 +48,33 @@ public class LoginTestcases extends BaseIndigo{
 	
 	
 	@Test (priority = 2)
+	// To click on the 'Continue' button to insert user name and without filled password
 	public void LoginWithoutPassword() throws MalformedURLException
 	{
 		AndroidDriver<AndroidElement> driver = capabilities();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
+		// To click on the 'Login' button
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text='Log in to your Indigo account']")));
 		WebElement loginclick = driver.findElement(By.xpath("//android.widget.TextView[@text='Log in to your Indigo account']"));
 		loginclick.click();
-		//driver.findElementByXPath("//android.widget.TextView[@Text='Log in to your Indigo account']").click();
 		
-		WebElement username = driver.findElementById("com.shireburn.indigo:id/etUsername");
+		// To insert the user name value
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.id("com.shireburn.indigo:id/etUsername")));
+		WebElement username = driver.findElement(By.id("com.shireburn.indigo:id/etUsername"));
 		username.sendKeys("invalidusername");
 		
-		WebElement btncontinue = driver.findElementById("com.shireburn.indigo:id/textLogin");
+		// To click on the 'Continue' button
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.id("com.shireburn.indigo:id/textLogin")));
+		WebElement btncontinue = driver.findElement(By.id("com.shireburn.indigo:id/textLogin"));
 		btncontinue.click();
 		
-		WebElement btnconitinuepsw = driver.findElementById("com.shireburn.indigo:id/btnConstraint");
+		// To click on the 'Continue' button
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.id("com.shireburn.indigo:id/btnConstraint")));
+		WebElement btnconitinuepsw = driver.findElement(By.id("com.shireburn.indigo:id/btnConstraint"));
 		btnconitinuepsw.click();
 		
-		//System.out.println(driver.findElementById("com.shireburn.indigo:id/txtPasswordPlaceHolder").getText());
+		// To compare the actual and expected text
 		String errormessage = driver.findElementById("com.shireburn.indigo:id/txtPasswordPlaceHolder").getText();
 		Assert.assertEquals(errormessage, "Password is required.");
 		
@@ -70,29 +84,38 @@ public class LoginTestcases extends BaseIndigo{
 	
 	
 	@Test (priority = 3)
+	// To click on the 'Continue' button to filled the invalid credentials
 	public void InvalidCredentials() throws MalformedURLException
 	{
 		AndroidDriver<AndroidElement> driver = capabilities();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
+		// To click on the 'Login' button
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text='Log in to your Indigo account']")));
 		WebElement loginclick = driver.findElement(By.xpath("//android.widget.TextView[@text='Log in to your Indigo account']"));
 		loginclick.click();
 		
-		//driver.findElementByXPath("//android.widget.TextView[@Text='Log in to your Indigo account']").click();
-		WebElement username = driver.findElementById("com.shireburn.indigo:id/etUsername");
+		// To insert the user name value
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.id("com.shireburn.indigo:id/etUsername")));
+		WebElement username = driver.findElement(By.id("com.shireburn.indigo:id/etUsername"));
 		username.sendKeys("invalidusername");
 		
-		WebElement btncontinue = driver.findElementById("com.shireburn.indigo:id/textLogin");
+		// To click on the 'Continue' button
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.id("com.shireburn.indigo:id/textLogin")));
+		WebElement btncontinue = driver.findElement(By.id("com.shireburn.indigo:id/textLogin"));
 		btncontinue.click();
 		
-		WebElement password = driver.findElementById("com.shireburn.indigo:id/etPassword");
+		// To insert the password value
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.id("com.shireburn.indigo:id/etPassword")));
+		WebElement password = driver.findElement(By.id("com.shireburn.indigo:id/etPassword"));
 		password.sendKeys("password");
 		
-		WebElement btnconitinuepsw = driver.findElementById("com.shireburn.indigo:id/btnConstraint");
+		// To click on the 'Continue' button
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.id("com.shireburn.indigo:id/btnConstraint")));
+		WebElement btnconitinuepsw = driver.findElement(By.id("com.shireburn.indigo:id/btnConstraint"));
 		btnconitinuepsw.click();
 		
-		//System.out.println(driver.findElement(By.xpath("//android.widget.TextView[@text='Invalid username or password. Please enter your credentials again.'")).getText());
-		//System.out.println(driver.findElementById("com.shireburn.indigo:id/txtLgnTitle").getText());
+		// To compare the actual and expected text
 		String errormessage = driver.findElementById("com.shireburn.indigo:id/txtLgnTitle").getText();
 		Assert.assertEquals(errormessage, "Enter your Password");
 		
@@ -101,26 +124,35 @@ public class LoginTestcases extends BaseIndigo{
 	
 	
 	@Test (priority = 4)
+	// To click on the show password icon inside the password field
 	public void ViewPassword() throws MalformedURLException
 	{
 		AndroidDriver<AndroidElement> driver = capabilities();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		//driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		
+		// To click on the 'Login' button
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text='Log in to your Indigo account']")));
 		WebElement loginclick = driver.findElement(By.xpath("//android.widget.TextView[@text='Log in to your Indigo account']"));
 		loginclick.click();
 		
-		WebElement username = driver.findElementById("com.shireburn.indigo:id/etUsername");
+		// To insert the user name value
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.id("com.shireburn.indigo:id/etUsername")));
+		WebElement username = driver.findElement(By.id("com.shireburn.indigo:id/etUsername"));
 		username.sendKeys("mis@narola.email");
 		
-		WebElement btncontinue = driver.findElementById("com.shireburn.indigo:id/textLogin");
+		// To click on the 'Continue' button
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.id("com.shireburn.indigo:id/textLogin")));
+		WebElement btncontinue = driver.findElement(By.id("com.shireburn.indigo:id/textLogin"));
 		btncontinue.click();
 		
-		WebElement password = driver.findElementById("com.shireburn.indigo:id/etPassword");
+		// To insert the password value
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.id("com.shireburn.indigo:id/etPassword")));
+		WebElement password = driver.findElement(By.id("com.shireburn.indigo:id/etPassword"));
 		password.sendKeys("Narol@123!!!");
 		
-		//driver.findElement(By.id("com.shireburn.indigo:id/ivPass")).click();
-		//WebElement showpsw = driver.findElement(By.className("android.widget.ImageView"));
-		WebElement showpsw = driver.findElementById("com.shireburn.indigo:id/ivPass");
+		// To tap on the show password icon to view the password
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.id("com.shireburn.indigo:id/ivPass")));
+		WebElement showpsw = driver.findElement(By.id("com.shireburn.indigo:id/ivPass"));
 		showpsw.click();
 		
 		System.out.println("Password shown");
@@ -129,89 +161,80 @@ public class LoginTestcases extends BaseIndigo{
 	
 	
 	@Test (priority = 5)
+	// To click on the 'Continue' button after filled the valid login credentials
 	public void ValidCredentials() throws MalformedURLException, InterruptedException
 	{
 		AndroidDriver<AndroidElement> driver = capabilities();
-		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		//driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		
+		// To click on the 'Login' button
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text='Log in to your Indigo account']")));
 		WebElement loginclick = driver.findElement(By.xpath("//android.widget.TextView[@text='Log in to your Indigo account']"));
 		loginclick.click();
 		
-		WebElement username = driver.findElementById("com.shireburn.indigo:id/etUsername");
+		// To insert the user name value
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.id("com.shireburn.indigo:id/etUsername")));
+		WebElement username = driver.findElement(By.id("com.shireburn.indigo:id/etUsername"));
 		username.sendKeys("mis@narola.email");
 		
-		WebElement btncontinue = driver.findElementById("com.shireburn.indigo:id/textLogin");
+		// To click on the 'Continue' button
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.id("com.shireburn.indigo:id/textLogin")));
+		WebElement btncontinue = driver.findElement(By.id("com.shireburn.indigo:id/textLogin"));
 		btncontinue.click();		
 		
-		WebElement password = driver.findElementById("com.shireburn.indigo:id/etPassword");
+		// To insert the password value
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.id("com.shireburn.indigo:id/etPassword")));
+		WebElement password = driver.findElement(By.id("com.shireburn.indigo:id/etPassword"));
 		password.sendKeys("Narol@123!!!");
 		
-		WebElement btnsubmit = driver.findElementById("com.shireburn.indigo:id/btnConstraint");
+		// To click on the 'Submit' button
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.id("com.shireburn.indigo:id/btnConstraint")));
+		WebElement btnsubmit = driver.findElement(By.id("com.shireburn.indigo:id/btnConstraint"));
 		btnsubmit.click();
 		
-		Thread.sleep(5000);
-		WebElement btnagree = driver.findElementByXPath("//android.widget.Button[@text='AGREE']");
+		// To click on the 'Agree' button
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.Button[@text='AGREE']")));
+		WebElement btnagree = driver.findElement(By.xpath("//android.widget.Button[@text='AGREE']"));
 		btnagree.click();
-		//driver.findElement(By.id("android:id/button1")).click();
 		
-		Thread.sleep(10000);
-		driver.findElementById("com.shireburn.indigo:id/etCode1").sendKeys("1");
-		driver.findElementById("com.shireburn.indigo:id/etCode2").sendKeys("2");
-		driver.findElementById("com.shireburn.indigo:id/etCode3").sendKeys("3");
-		driver.findElementById("com.shireburn.indigo:id/etCode4").sendKeys("4");
+		// To insert the first dial access code
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.id("com.shireburn.indigo:id/etCode1")));
+		WebElement firstcode = driver.findElement(By.id("com.shireburn.indigo:id/etCode1"));
+		firstcode.sendKeys("1");
 		
-		WebElement btnsetaccess = driver.findElementById("com.shireburn.indigo:id/textSetAccessCode");
+		// To insert the second dial access code
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.id("com.shireburn.indigo:id/etCode2")));
+		WebElement secondcode = driver.findElement(By.id("com.shireburn.indigo:id/etCode2"));
+		secondcode.sendKeys("2");
+		
+		// To insert the third dial access code
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.id("com.shireburn.indigo:id/etCode3")));
+		WebElement thirdcode = driver.findElement(By.id("com.shireburn.indigo:id/etCode3"));
+		thirdcode.sendKeys("3");
+		
+		// To insert the fourth dial access code
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.id("com.shireburn.indigo:id/etCode4")));
+		WebElement fourthcode = driver.findElement(By.id("com.shireburn.indigo:id/etCode4"));
+		fourthcode.sendKeys("4");
+		
+		// To click on the 'Set access code' button
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.id("com.shireburn.indigo:id/textSetAccessCode")));
+		WebElement btnsetaccess = driver.findElement(By.id("com.shireburn.indigo:id/textSetAccessCode"));
 		btnsetaccess.click();
 		
+		// To click on the 'Allow' button
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text='Allow Access']")));
 		WebElement btnallow = driver.findElement(By.xpath("//android.widget.TextView[@text='Allow Access']"));
 		btnallow.click();
 		
+		// To click on the 'Permission access' button
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.Button[@text='While using the app']")));
 		WebElement btnpermission = driver.findElement(By.xpath("//android.widget.Button[@text='While using the app']"));
 		btnpermission.click();
 		
 		System.out.println("User logged in successfully in the indigo application");
 		
 	}
-	
-		
-	/*
-		@Test (priority = 6)
-		public void logout() throws MalformedURLException, InterruptedException
-		{
-			AndroidDriver<AndroidElement> driver = capabilities();
-			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-			
-			driver.findElement(By.xpath("//android.widget.TextView[@text='Log in to your Indigo account']")).click();
-			
-			driver.findElementById("com.shireburn.indigo:id/etUsername").sendKeys("mis@narola.email");
-			driver.findElementById("com.shireburn.indigo:id/textLogin").click();
-			
-			driver.findElementById("com.shireburn.indigo:id/etPassword").sendKeys("Narol@123!!!");
-			driver.findElementById("com.shireburn.indigo:id/btnConstraint").click();
-			
-			driver.findElement(By.xpath("//android.widget.Button[@text='AGREE']")).click();
-			
-			driver.findElementById("com.shireburn.indigo:id/etCode1").sendKeys("1");
-			driver.findElementById("com.shireburn.indigo:id/etCode2").sendKeys("2");
-			driver.findElementById("com.shireburn.indigo:id/etCode3").sendKeys("3");
-			driver.findElementById("com.shireburn.indigo:id/etCode4").sendKeys("4");
-			
-			driver.findElementById("com.shireburn.indigo:id/textSetAccessCode").click();
-			
-			driver.findElement(By.xpath("//android.widget.TextView[@text='Allow Access']")).click();
-			driver.findElement(By.xpath("//android.widget.Button[@text='While using the app']")).click();
-			
-			//Thread.sleep(10000);
-			driver.findElement(By.id("com.shireburn.indigo:id/cvUserImage")).click();
-			
-			driver.findElement(By.id("com.shireburn.indigo:id/tvLogout")).click();
-			driver.findElement(By.xpath("//android.widget.Button[@text='LOGOUT']")).click();
-			
-			System.out.println("User logged out successfully");
-			 
-						
-		}
-		*/
 		
 		
 }
