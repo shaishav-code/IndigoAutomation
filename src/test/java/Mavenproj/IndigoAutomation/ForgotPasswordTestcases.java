@@ -21,7 +21,7 @@ public class ForgotPasswordTestcases extends BaseIndigo{
 		
 		AndroidDriver<AndroidElement> driver = capabilities();
 		//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		
+		//First test
 		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text='Log in to your Indigo account']")));
 		WebElement loginclick = driver.findElement(By.xpath("//android.widget.TextView[@text='Log in to your Indigo account']"));
 		loginclick.click();
