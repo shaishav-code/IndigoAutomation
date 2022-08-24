@@ -3,14 +3,12 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Mavenproj.IndigoAutomation.LoginTestcases">
+      <class name="Mavenproj.IndigoAutomation.AddAccount_TC">
         <methods>
-          <include name="LoginWithoutInsertValue"/>
-          <include name="LoginWithoutPassword"/>
-          <include name="InvalidCredentials"/>
-          <include name="ValidCredentials"/>
+          <include name="trytoaddwithoutusername"/>
+          <include name="Addaccount"/>
         </methods>
-      </class> <!-- Mavenproj.IndigoAutomation.LoginTestcases -->
+      </class> <!-- Mavenproj.IndigoAutomation.AddAccount_TC -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -1,5 +1,7 @@
 package Mavenproj.IndigoAutomation;
 
+import static org.testng.Assert.assertEquals;
+
 import java.net.MalformedURLException;
 
 import org.openqa.selenium.By;
@@ -111,7 +113,9 @@ public class ForgotPasswordTestcases extends BaseIndigo{
 		WebElement getpasswordreset = driver.findElement(By.id("com.shireburn.indigo:id/textRecoverPassword"));
 		getpasswordreset.click();
 		
-		System.out.println("User should get the mail for recover password on registered email address");
+		new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.id("com.shireburn.indigo:id/txtRecoverPasswordSentMsg1")));
+		String confirmmessage = driver.findElement(By.id("com.shireburn.indigo:id/txtRecoverPasswordSentMsg1")).getText();
+		Assert.assertEquals(confirmmessage, "A new link to change your password has been sent to your Indigo account email.");
 	}
 
 }
